@@ -1,21 +1,27 @@
 import sort.BinaryInsertionSort;
 import sort.CountingSort;
-import sort.Testing;
 
+
+import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
-        Testing testing = new Testing();
-        int[] arrRandom = testing.generateRandomIntArray();
-        int[] arrSorted = testing.generateSortedIntArray();
-        int[] arrReverseSorted = testing.generateReverseSortedIntArray();
 
+    public static void main(String[] args) throws IOException {
         BinaryInsertionSort binaryInsertionSort = new BinaryInsertionSort();
         CountingSort countingSort = new CountingSort();
 
-        countingSort.sort(arrSorted);
-        binaryInsertionSort.sort(arrSorted);
+        int[] sizes = new int[50]; // sample sizes
+        for (int i = 1; i <= sizes.length; i++) {
+            sizes[i - 1] = (int) Math.pow(i, 3);
+        }
 
+        for (int i = 0; i < sizes.length; i++) {
+            binaryInsertionSort.getTimeComplexity(sizes[i]);
+            binaryInsertionSort.writeToFile();
 
+            countingSort.getTimeComplexity(sizes[i]);
+            countingSort.writeToFile();
+        }
     }
+
 }

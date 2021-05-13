@@ -1,33 +1,80 @@
 package sort;
 
-public class CountingSort extends complexity{
+public class CountingSort extends complexity {
     private int numberOfBasicOp;
+    private int[] nums;
+    Testing testing = new Testing();
 
-    public CountingSort() {
-
-    }
-
+    @Override
     public void sort(int[] nums) {
         numberOfBasicOp = 0;
+
         int size = nums.length;
-        int[] count = new int[size];
-        int[] output = new int[size];
-        for (int i = 0; i < size - 1; i++) {
-            for (int j = i + 1; j < size; j++) {
-                numberOfBasicOp++; // comparison selected as basic operation
-                if (nums[i] < nums[j])
-                    count[j]++;
-                else
-                    count[i]++;
-            }
+        int[] output = new int[size + 1];
+
+        // Find the largest element of the array
+        int max = nums[0];
+        for (int i = 1; i < size; i++) {
+            if (nums[i] > max)
+                max = nums[i];
+        }
+        // Initialize count array with all zeros.
+        int[] count = new int[max + 1];
+
+        // Store the count of each element
+        for (int i = 0; i < size; i++) {
+            numberOfBasicOp++;
+            count[nums[i]]++;
         }
 
-        for (int i = 0; i < size; i++)
-            output[count[i]] = nums[i];
+        // Store the cumulative count of each array
+        for (int i = 1; i <= max; i++) {
+            numberOfBasicOp++;
+            count[i] += count[i - 1];
+        }
 
+        // Find the index of each element of the original array in count array, and
+        // place the elements in output array
+        for (int i = size - 1; i >= 0; i--) {
+            numberOfBasicOp++;
+            output[count[nums[i]] - 1] = nums[i];
+            count[nums[i]]--;
+        }
+
+        // Copy the sorted elements into original array
+        for (int i = 0; i < size; i++) {
+            nums[i] = output[i];
+        }
+        this.nums = nums;
     }
 
+    @Override
     public int getNumberOfBasicOp() {
         return numberOfBasicOp;
+    }
+
+    @Override
+    protected int[] getBestCaseIntArr(int n) {
+        return testing.generateSortedIntArray(n);
+    }
+
+    @Override
+    protected int[] getAverageCaseIntArr(int n) {
+        return testing.generateRandomIntArray(n);
+    }
+
+    @Override
+    protected int[] getWorstCaseIntArr(int n) {
+        return testing.generateReverseSortedIntArray(n);
+    }
+
+    @Override
+    protected String getAlgorithmName() {
+        return "CountingSort";
+    }
+
+    @Override
+    protected int[] getIntArr() {
+        return this.nums;
     }
 }

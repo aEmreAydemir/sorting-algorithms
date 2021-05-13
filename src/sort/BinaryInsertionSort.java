@@ -1,8 +1,11 @@
 package sort;
 
-public class BinaryInsertionSort extends complexity{
+public class BinaryInsertionSort extends complexity {
     private int numberOfBasicOp;
+    private int[] nums;
+    Testing testing = new Testing();
 
+    @Override
     public void sort(int[] nums) {
         int n = nums.length;
         numberOfBasicOp = 0;
@@ -17,6 +20,7 @@ public class BinaryInsertionSort extends complexity{
             // insert element at found position
             nums[insertedPosition] = key;
         }
+        this.nums = nums;
     }
 
     // binary search to find position for new element
@@ -37,10 +41,33 @@ public class BinaryInsertionSort extends complexity{
         return start;
     }
 
+    @Override
     public int getNumberOfBasicOp() {
         return numberOfBasicOp;
     }
 
-    // For getting information about best, average and worst time complexity. Return value contains running time of sorting algorithm and count of the basic operation.
+    @Override
+    protected int[] getBestCaseIntArr(int n) {
+        return testing.generateSortedIntArray(n);
+    }
 
+    @Override
+    protected int[] getAverageCaseIntArr(int n) {
+        return testing.generateRandomIntArray(n);
+    }
+
+    @Override
+    protected int[] getWorstCaseIntArr(int n) {
+        return testing.generateReverseSortedIntArray(n);
+    }
+
+    @Override
+    protected String getAlgorithmName() {
+        return "BinaryInsertionSort";
+    }
+
+    @Override
+    protected int[] getIntArr() {
+        return this.nums;
+    }
 }
