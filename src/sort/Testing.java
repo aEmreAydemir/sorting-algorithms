@@ -1,11 +1,8 @@
 package sort;
 
-import java.util.ArrayList;
-
 import java.util.Random;
 
-
-abstract public class Testing {
+public class Testing {
     private int arraySize;
     private int upperLimit = 10000;
 
@@ -25,10 +22,27 @@ abstract public class Testing {
 
         Random random = new Random();
 
-        for (int i = 0; i < n; i++) {
-            list[i] = random.nextInt(this.upperLimit);
-        }
+        for (int i = 0; i < n; i++) list[i] = random.nextInt(this.upperLimit);
 
         return list;
     }
+
+    public int[] generateSortedIntArray() {
+        int n = this.arraySize;
+
+        int[] list = new int[n];
+        for (int i = 0; i < n; i++) list[i] = i;
+
+        return list;
+    }
+
+    public int[] generateReverseSortedIntArray() {
+        int n = this.arraySize;
+
+        int[] list = new int[n];
+        for (int i = 0; i < n; i++) list[i] = n - (i + 1);
+
+        return list;
+    }
+
 }
