@@ -3,8 +3,8 @@ package sort;
 import java.util.Random;
 
 public class Testing {
-    private final int defaultSize = 100;
-    private int upperLimit = 10000;
+    private final int defaultSize = 1000;
+    private final int upperLimit = 10000;
     Random random = new Random();
 
     public int[] generateRandomIntArray() {
