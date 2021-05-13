@@ -20,7 +20,7 @@ public class Testing {
 
         Random random = new Random();
 
-        for (int i = 0; i < n; i++) list[i] = random.nextInt(this.upperLimit);
+        for (int i = 1; i < n; i++) list[i] = random.nextInt(this.upperLimit);
 
         return list;
     }
@@ -32,7 +32,7 @@ public class Testing {
 
     public int[] generateSortedIntArray(int n) {
         int[] list = new int[n];
-        for (int i = 0; i < n; i++) list[i] = i;
+        for (int i = 1; i <= n; i++) list[i-1] = Math.min(i, this.upperLimit - 1);
 
         return list;
     }
@@ -44,7 +44,7 @@ public class Testing {
     public int[] generateReverseSortedIntArray(int n) {
 
         int[] list = new int[n];
-        for (int i = 0; i < n; i++) list[i] = n - (i + 1);
+        for (int i = 1; i <= n; i++) list[i-1] = Math.min(n - (i + 1), this.upperLimit - 1);
 
         return list;
     }
