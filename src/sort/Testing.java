@@ -6,18 +6,16 @@ public class Testing {
     private int arraySize;
     private int upperLimit = 10000;
 
-    public Testing(int arraySize) {
-        this.arraySize = arraySize;
-    }
-
     public Testing() {
         this.arraySize = 1000;
     }
 
     // A method to generate an integer array with an arbitrary size. (default size is 1000; Elements of array are integers between 0 to 10000)
     public int[] generateRandomIntArray() {
-        int n = this.arraySize;
+        return generateRandomIntArray(this.arraySize);
+    }
 
+    public int[] generateRandomIntArray(int n) {
         int[] list = new int[n];
 
         Random random = new Random();
@@ -27,9 +25,12 @@ public class Testing {
         return list;
     }
 
-    public int[] generateSortedIntArray() {
-        int n = this.arraySize;
 
+    public int[] generateSortedIntArray() {
+        return generateSortedIntArray(this.arraySize);
+    }
+
+    public int[] generateSortedIntArray(int n) {
         int[] list = new int[n];
         for (int i = 0; i < n; i++) list[i] = i;
 
@@ -37,7 +38,10 @@ public class Testing {
     }
 
     public int[] generateReverseSortedIntArray() {
-        int n = this.arraySize;
+        return generateReverseSortedIntArray(this.arraySize);
+    }
+
+    public int[] generateReverseSortedIntArray(int n) {
 
         int[] list = new int[n];
         for (int i = 0; i < n; i++) list[i] = n - (i + 1);
