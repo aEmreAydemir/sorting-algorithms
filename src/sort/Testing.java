@@ -16,7 +16,7 @@ public class Testing {
         n = n == -1 ? this.defaultSize : n;
         int[] list = new int[n];
 
-        for (int i = 0; i < n; i++) list[i] = random.nextInt(this.upperLimit);
+        for (int i = 0; i < n; i++) list[i] = Math.max(1, random.nextInt(this.upperLimit - 1));
 
         return list;
     }

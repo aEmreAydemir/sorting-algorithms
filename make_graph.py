@@ -7,100 +7,105 @@ import os
 paths = os.listdir('output')
 
 
-def compare_algorithm_times_plot(dic):
+def check_dir(path):
+    if not os.path.exists(path):
+        os.makedirs(path)
+
+
+def compare_algorithm_plot(dic, time_plot=True):
+
     for key, value_dic in dic.items():
         plot1 = plt.figure(1, figsize=(9, 6))
-        make_plot_time(value_dic['best'], key)
+        make_plot(value_dic['best'], key, time_plot)
         plt.title('best case')
         plot2 = plt.figure(2, figsize=(9, 6))
-        make_plot_time(value_dic['average'], key)
+        make_plot(value_dic['average'], key, time_plot)
         plt.title('average case')
         plot3 = plt.figure(3, figsize=(9, 6))
-        make_plot_time(value_dic['worst'], key)
+        make_plot(value_dic['worst'], key, time_plot)
         plt.title('worst case')
 
-    plot1.savefig(os.path.join('plot', 'best_time_comparison.png'))
-    plot2.savefig(os.path.join('plot', 'average_time_comparison.png'))
-    plot3.savefig(os.path.join('plot', 'worst_time_comparison.png'))
+    label = 'time' if time_plot else 'count'
+    plot1.savefig(os.path.join('plot\\algorithm_comparison',
+                  'best_' + label + '_comparison.png'))
+    plot2.savefig(os.path.join('plot\\algorithm_comparison',
+                  'average_' + label + '_comparison.png'))
+    plot3.savefig(os.path.join('plot\\algorithm_comparison',
+                  'worst_' + label + '_comparison.png'))
 
+    plt.close()
+    plt.close()
     plt.close()
 
 
-def compare_algorithm_count_plot(dic):
-    for key, value_dic in dic.items():
-        plot1 = plt.figure(4, figsize=(9, 6))
-        make_plot_count(value_dic['best'], key)
-        plt.title('best case')
-        plot2 = plt.figure(5, figsize=(9, 6))
-        make_plot_count(value_dic['average'], key)
-        plt.title('average case')
-        plot3 = plt.figure(6, figsize=(9, 6))
-        make_plot_count(value_dic['worst'], key)
-        plt.title('worst case')
-
-    plot1.savefig(os.path.join('plot', 'best_count_comparison.png'))
-    plot2.savefig(os.path.join('plot', 'average_count_comparison.png'))
-    plot3.savefig(os.path.join('plot', 'worst_count_comparison.png'))
-
-    plt.close()
-
-def make_plot_count(df, case,):
+def make_plot(df, case, time_plot=True):
     size = df['size'].values
+    time = df['time'].values
     count = df['count'].values
-    
-    plt.plot(size, count, label=case)
+    y = time if time_plot else count
+    ylabel = 'time' if time_plot else 'count'
+
+    plt.plot(size, y, label=case)
     plt.legend()
     plt.xlabel('n')
-    plt.ylabel('count')
+    plt.ylabel(ylabel)
 
-
-def make_plot_time(df, case):
+# corr = df.corr()
+# plt.subplots(figsize=(15, 10))
+# sns.heatmap(corr,xticklabels=corr.columns, yticklabels=corr.columns,
+# annot=True,cmap=sns.diverging_palette(220, 20, as_cmap=True))
+# plt.show()
+'''
+def make_heatmap(df, case, time_plot=True):
     size = df['size'].values
-    time = df['time'].values / 1000.0  # convert to microsecond
+    time = df['time'].values
+    count = df['count'].values
+    y = time if time_plot else count
+    ylabel = 'time' if time_plot else 'count'
 
-    plt.plot(size, time, label=case)
-    plt.legend()
-    plt.xlabel('n')
-    plt.ylabel('time')
-
-
-def make_plot():
+    plt.subplot(figsize=(15,10))
+    sns.heatmap(y, )
+    pass
+'''
+def data_plot():
     complexity_dict = {}
     for path in paths:
         df = pd.read_csv(os.path.join('output', path))
         title = path.split('.')[0]
+        check_dir(os.path.join('plot\\algorithm_info', title))
 
         df_best = df[df['type'] == 'best']
         df_average = df[df['type'] == 'average']
         df_worst = df[df['type'] == 'worst']
         plt.figure(figsize=(9, 6))
-        make_plot_time(df_best, 'best')
-        make_plot_time(df_average, 'average')
-        make_plot_time(df_worst, 'worst')
+        make_plot(df_best, 'best')
+        make_plot(df_average, 'average')
+        make_plot(df_worst, 'worst')
 
-        plt.title(path.split('.')[0])
+        plt.title(title)
         plt.savefig(os.path.join(
-            'plot', title + '_time' + '.png'))
+            'plot\\algorithm_info\\' + title, 'time' + '.png'))
         plt.close()
 
         complexity_dict[title] = {'best': df_best,
                                   'average': df_average,
                                   'worst': df_worst}
         plt.figure(figsize=(9, 6))
-        make_plot_count(df_best, 'best')
-        make_plot_count(df_average, 'average')
-        make_plot_count(df_worst, 'worst')
-        plt.title(path.split('.')[0])
+        make_plot(df_best, 'best', time_plot=False)
+        make_plot(df_average, 'average', time_plot=False)
+        make_plot(df_worst, 'worst', time_plot=False)
+        plt.title(title)
+
         plt.savefig(os.path.join(
-            'plot', title + '_count' + '.png'))
+            'plot\\algorithm_info\\' + title, 'count' + '.png'))
         plt.close()
 
-    compare_algorithm_times_plot(complexity_dict)
-    compare_algorithm_count_plot(complexity_dict)
+    compare_algorithm_plot(complexity_dict)
+    compare_algorithm_plot(complexity_dict, time_plot=False)
 
 
 def main():
-    make_plot()
+    data_plot()
 
 
 if __name__ == "__main__":

@@ -55,10 +55,13 @@ public abstract class complexity {
         }
     }
 
-    public void writeToFile() throws IOException {
+    public void writeToFile(boolean first_run) throws IOException {
 
-        String filePath = "output\\"+ getAlgorithmName() + ".csv";
+        String filePath = "output\\" + getAlgorithmName() + ".csv";
         File f = new File(filePath);
+        if (first_run) {
+            f.delete();
+        }
 
         FileWriter writer;
         if (!f.exists()) {

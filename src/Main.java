@@ -9,6 +9,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BinaryInsertionSort binaryInsertionSort = new BinaryInsertionSort();
         CountingSort countingSort = new CountingSort();
+        boolean firstRun = true;
 
         int[] sizes = new int[120]; // sample sizes
         for (int i = 1; i <= sizes.length; i++) {
@@ -17,10 +18,11 @@ public class Main {
 
         for (int i = 0; i < sizes.length; i++) {
             binaryInsertionSort.getTimeComplexity(sizes[i]);
-            binaryInsertionSort.writeToFile();
+            binaryInsertionSort.writeToFile(firstRun);
 
             countingSort.getTimeComplexity(sizes[i]);
-            countingSort.writeToFile();
+            countingSort.writeToFile(firstRun);
+            firstRun = false;
         }
     }
 

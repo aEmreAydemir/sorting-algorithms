@@ -4,6 +4,17 @@ public class CountingSort extends complexity {
     private int numberOfBasicOp;
     private int[] nums;
     Testing testing = new Testing();
+    private int max;
+
+    private void findMax(int[] nums) {
+        int size = nums.length;
+        int max = nums[0];
+        for (int i = 1; i < size; i++) {
+            if (nums[i] > max)
+                max = nums[i];
+        }
+        this.max = max;
+    }
 
     @Override
     public void sort(int[] nums) {
@@ -13,11 +24,7 @@ public class CountingSort extends complexity {
         int[] output = new int[size + 1];
 
         // Find the largest element of the array
-        int max = nums[0];
-        for (int i = 1; i < size; i++) {
-            if (nums[i] > max)
-                max = nums[i];
-        }
+
         // Initialize count array with all zeros.
         int[] count = new int[max + 1];
 
@@ -46,6 +53,16 @@ public class CountingSort extends complexity {
             nums[i] = output[i];
         }
         this.nums = nums;
+    }
+
+    public long execTime(int[] arr) {
+        findMax(arr);
+        long startTime = System.nanoTime();
+        sort(arr);
+        long endTime = System.nanoTime();
+        long durationInMillis = (endTime - startTime);
+
+        return durationInMillis;
     }
 
     @Override
