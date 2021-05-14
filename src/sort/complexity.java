@@ -7,32 +7,33 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class complexity {
-    private Map<String, long[]> complexity;
+    private Map<String, Object[]> complexity;
 
-    public Map<String, long[]> getTimeComplexity() {
+    public Map<String, Object[]> getTimeComplexity() {
         return getTimeComplexity(-1);
     } // -1 means use default array size in Testing
 
-    public Map<String, long[]> getTimeComplexity(int n) {
-        Map<String, long[]> complexity = new HashMap<>();
+    public Map<String, Object[]> getTimeComplexity(int n) {
+        Map<String, Object[]>complexity = new HashMap<>();
 
         int[] arrBest = getBestCaseIntArr(n);
         int[] arrAverage = getAverageCaseIntArr(n);
         int[] arrWorst = getWorstCaseIntArr(n);
 
-        complexity.put("best", getInfo(arrBest));
-        complexity.put("average", getInfo(arrAverage));
-        complexity.put("worst", getInfo(arrWorst));
+        complexity.put("best", getInfo(arrBest, "best"));
+        complexity.put("average", getInfo(arrAverage, "average"));
+        complexity.put("worst", getInfo(arrWorst, "worst"));
 
         this.complexity = complexity;
         return complexity;
     }
 
-    public long[] getInfo(int[] arr) {
-        long[] info = new long[3];
+    public Object[] getInfo(int[] arr, String inputType) {
+        Object[] info = new Object[4];
         info[0] = arr.length;
         info[1] = execTime(arr);
         info[2] = getNumberOfBasicOp();
+        info[3] = getCase(inputType);
 
         return info;
     }
@@ -55,18 +56,18 @@ public abstract class complexity {
         }
     }
 
-    public void writeToFile(boolean first_run) throws IOException {
+    public void writeToFile(boolean firstRun) throws IOException {
 
         String filePath = "output\\" + getAlgorithmName() + ".csv";
         File f = new File(filePath);
-        if (first_run) {
+        if (firstRun) {
             f.delete();
         }
 
         FileWriter writer;
         if (!f.exists()) {
             writer = new FileWriter(filePath);
-            writer.append("size,time,count,type");
+            writer.append("size,time,count,input_type,type");
             writer.flush();
             writer.close();
         }
@@ -75,7 +76,7 @@ public abstract class complexity {
         FileWriter finalWriter = writer;
         this.complexity.forEach((key, value) -> {
             try {
-                finalWriter.append("\n" + value[0] + "," + value[1] + "," + value[2] + "," + key);
+                    finalWriter.append("\n" + value[0] + "," + value[1] + "," + value[2] + "," + value[3] + "," + key);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -97,4 +98,6 @@ public abstract class complexity {
     protected abstract int[] getAverageCaseIntArr(int n);
 
     protected abstract int[] getWorstCaseIntArr(int n);
+
+    protected abstract String getCase(String inputType);
 }

@@ -1,15 +1,23 @@
 package sort;
 
-public class HeapSort extends complexity
-{
+import java.util.HashMap;
+import java.util.Map;
+
+public class HeapSort extends complexity {
     private int numberOfBasicOp;
     private int[] nums;
-    Testing testing= new Testing();
+    Testing testing = new Testing();
+    private Map<String, String> inputType = new HashMap<>();
+
+    public HeapSort() {
+        inputType.put("best", "ascending");
+        inputType.put("average", "random");
+        inputType.put("worst", "descending");
+    }
 
     @Override
-    public void sort(int nums[])
-    {
-        numberOfBasicOp=0;
+    public void sort(int[] nums) {
+        numberOfBasicOp = 0;
         int n = nums.length;
 
         // creating heap
@@ -26,12 +34,12 @@ public class HeapSort extends complexity
             // call max heapify on the reduced heap
             heapify(nums, i, 0);
         }
+        this.nums = nums;
     }
 
     // heapify the subtree with root i (i=index in array, n=heap size)
 
-    private void heapify(int array[], int n, int i)
-    {
+    private void heapify(int array[], int n, int i) {
         int biggest = i; // the biggest is the root
         int left = 2 * i + 1;
         int right = 2 * i + 2;
@@ -85,37 +93,9 @@ public class HeapSort extends complexity
         return this.nums;
     }
 
-
-
-   /* static void printArray(int arr[])
-    {
-        int n = arr.length;
-        for (int i=0; i<n; ++i)
-            System.out.print(arr[i]+" ");
-        System.out.println();
+    @Override
+    protected String getCase(String inputType) {
+        return this.inputType.get(inputType);
     }
-
-    // main
-    public static void main(String args[]) throws IOException {
-
-
-
-
-        int arr[] = { 12, 11, 13, 5, 6, 7 };
-        int n = arr.length;
-
-        heapSort ob = new heapSort();
-        ob.sort(arr);
-
-        System.out.println("Sorted array is");
-        printArray(arr);
-
-
-    }
-*/
-
-
-
-
 
 }

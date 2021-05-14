@@ -1,10 +1,20 @@
 package sort;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class CountingSort extends complexity {
     private int numberOfBasicOp;
     private int[] nums;
     Testing testing = new Testing();
     private int max;
+    private Map<String, String> inputType = new HashMap<>();
+
+    public CountingSort() {
+        inputType.put("best", "ascending");
+        inputType.put("average", "random");
+        inputType.put("worst", "descending");
+    }
 
     private void findMax(int[] nums) {
         int size = nums.length;
@@ -93,5 +103,10 @@ public class CountingSort extends complexity {
     @Override
     protected int[] getIntArr() {
         return this.nums;
+    }
+
+    @Override
+    protected String getCase(String inputType) {
+        return this.inputType.get(inputType);
     }
 }

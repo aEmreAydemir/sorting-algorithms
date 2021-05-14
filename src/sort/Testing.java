@@ -30,7 +30,7 @@ public class Testing {
         n = n == -1 ? this.defaultSize : n;
         int[] list = new int[n];
 
-        for (int i = 0; i < n; i++) list[i] = (int) random.nextGaussian() * 2000 + this.upperLimit / 2;
+        for (int i = 0; i < n; i++) list[i] = (int) Math.abs(random.nextGaussian() * 2000 + this.upperLimit / 2.0);
         return list;
     }
 
@@ -75,5 +75,38 @@ public class Testing {
 
         return list;
     }
+
+    public int[] generateSameElementIntArray() {
+        return generateSameElementIntArray(this.defaultSize);
+    }
+
+    public int[] generateSameElementIntArray(int n) {
+        n = n == -1 ? this.defaultSize : n;
+
+        int[] list = new int[n];
+        int value = Math.max(1, random.nextInt(this.upperLimit - 1));
+        for (int i = 0; i < n; i++) list[i] = value;
+
+        return list;
+    }
+
+    public int[] generateQuickSortMedianWorstCaseIntArray() {
+        return generateQuickSortMedianWorstCaseIntArray(this.defaultSize);
+    }
+
+    public int[] generateQuickSortMedianWorstCaseIntArray(int n) {
+        n = n == -1 ? this.defaultSize : n;
+
+        int[] list = new int[n];
+
+        for (int i = 1; i < n; i++) {
+            if (i > Math.floor(n / 2.0)) list[i - 1] = i + 2;
+            if (i == Math.floor(n / 2.0)) list[i - 1] = i - 1;
+            else list[i - 1] = i - 2;
+        }
+
+        return list;
+    }
+
 
 }

@@ -1,117 +1,130 @@
 package sort;
 
-public class MedianQuickSort extends complexity{
-    public static int[] a;
+import java.util.HashMap;
+import java.util.Map;
+
+public class MedianQuickSort extends complexity {
+    private int[] nums;
     private static int numberOfBasicOp;
     // This method sorts an array and internally calls quickSort
     Testing testing = new Testing();
+    private Map<String, String> inputType = new HashMap<>();
+
+    public MedianQuickSort() {
+        inputType.put("best", "ascending");
+        inputType.put("average", "random");
+        inputType.put("worst", "descending");
+    }
 
     @Override
-    public void sort(int array[]){
-        numberOfBasicOp=0;
-        a=array;
+    public void sort(int[] arr) {
+        numberOfBasicOp = 0;
+        nums = arr;
         int left = 0;
-        int right = a.length-1;
+        int right = nums.length - 1;
 
-        quickSort(left, right);
+        quickSort(arr, left, right);
     }
 
     // This method is used to sort the array using quicksort algorithm.
     // It takes left and the right end of the array as two cursors
-    private static void quickSort(int left,int right){
+    private static void quickSort(int[] arr, int left, int right) {
 
         // If both cursor scanned the complete array, quicksort exits
-        if(left >= right){
+        if (left >= right) {
             numberOfBasicOp++;
             return;
         }
 
 
         // Pivot using median of 3 approach
-        int pivot = getMedian(left, right);
-        int partition = partition(left, right, pivot);
+        int pivot = getMedian(arr, left, right);
+        int partition = partition(arr, left, right, pivot);
 
         // Recursively, calls the quicksort with the different left and right parameters of the sub-array
-        quickSort(left, partition-1);
-        quickSort(partition+1, right);
+        quickSort(arr, left, partition - 1);
+        quickSort(arr, partition + 1, right);
     }
 
     // This method is used to partition the given array and returns the integer which points to the sorted pivot index
-    private static int partition(int left,int right,int pivot){
-        int leftCursor = left-1;
+    private static int partition(int[] arr, int left, int right, int pivot) {
+        int leftCursor = left - 1;
         int rightCursor = right;
-        while(leftCursor < rightCursor){
-            while(a[++leftCursor] < pivot);
-            while(rightCursor > 0 && a[--rightCursor] > pivot);
-            if(leftCursor >= rightCursor){
-                numberOfBasicOp++;
+        while (leftCursor < rightCursor) {
+            while (arr[++leftCursor] < pivot) ;
+            while (rightCursor > 0 && arr[--rightCursor] > pivot) ;
+            numberOfBasicOp++;
+            if (leftCursor >= rightCursor) {
                 break;
-            }else{
-                numberOfBasicOp++;
-                swap(leftCursor, rightCursor);
+            } else {
+                swap(arr, leftCursor, rightCursor);
             }
         }
-        swap(leftCursor, right);
+        swap(arr, leftCursor, right);
         return leftCursor;
     }
 
-    public static int getMedian(int left,int right){
-        int center = (left+right)/2;
-
-        if(a[left] > a[center]) {
-            swap(left,center);
+    public static int getMedian(int[] arr, int left, int right) {
+        int center = (left + right) / 2;
+        if (arr[left] > arr[center]) {
+            swap(arr, left, center);
             numberOfBasicOp++;
         }
 
 
-        if(a[left] > a[right]) {
-            swap(left, right);
+        if (arr[left] > arr[right]) {
+            swap(arr, left, right);
             numberOfBasicOp++;
         }
 
-        if(a[center] > a[right]) {
-            swap(center, right);
+        if (arr[center] > arr[right]) {
+            swap(arr, center, right);
             numberOfBasicOp++;
         }
 
-        swap(center, right);
-        return a[right];
+        swap(arr, center, right);
+        return arr[right];
     }
 
     // This method is used to swap the values between the two given index
-    public static void swap(int left,int right){
-        int temp = a[left];
-        a[left] = a[right];
-        a[right] = temp;
+    public static void swap(int[] arr, int left, int right) {
+        int temp = arr[left];
+        arr[left] = arr[right];
+        arr[right] = temp;
     }
 
     @Override
-    protected String getAlgorithmName() {
-        return null;
-    }
-
-    @Override
-    protected int[] getIntArr() {
-        return a;
-    }
-
-    @Override
-    protected int getNumberOfBasicOp() {
+    public int getNumberOfBasicOp() {
         return numberOfBasicOp;
     }
 
     @Override
     protected int[] getBestCaseIntArr(int n) {
-        return new int[0];
+        return testing.generateSortedIntArray(n);
     }
 
     @Override
     protected int[] getAverageCaseIntArr(int n) {
-        return new int[0];
+        return testing.generateRandomIntArray(n);
     }
 
     @Override
     protected int[] getWorstCaseIntArr(int n) {
-        return new int[0];
+        return testing.generateQuickSortMedianWorstCaseIntArray(n);
     }
+
+    @Override
+    protected String getAlgorithmName() {
+        return "MedianQuickSort";
+    }
+
+    @Override
+    protected int[] getIntArr() {
+        return this.nums;
+    }
+
+    protected String getCase(String inputType) {
+        return this.inputType.get(inputType);
+    }
+
 }

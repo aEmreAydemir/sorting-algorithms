@@ -1,7 +1,4 @@
-import sort.BinaryInsertionSort;
-import sort.CountingSort;
-import sort.HeapSort;
-import sort.MergeSort;
+import sort.*;
 
 
 import java.io.IOException;
@@ -11,8 +8,11 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BinaryInsertionSort binaryInsertionSort = new BinaryInsertionSort();
         CountingSort countingSort = new CountingSort();
-        //HeapSort heapSort= new HeapSort();
-        //MergeSort mergeSort=new MergeSort();
+        HeapSort heapSort = new HeapSort();
+        MedianQuickSort medianQuickSort = new MedianQuickSort();
+        MergeSort mergeSort = new MergeSort();
+        QuickSortLeftMostPivot quickSortLeftMostPivot = new QuickSortLeftMostPivot();
+
         boolean firstRun = true;
 
         int[] sizes = new int[120]; // sample sizes
@@ -26,6 +26,18 @@ public class Main {
 
             countingSort.getTimeComplexity(sizes[i]);
             countingSort.writeToFile(firstRun);
+
+            heapSort.getTimeComplexity(sizes[i]);
+            heapSort.writeToFile(firstRun);
+
+            mergeSort.getTimeComplexity(sizes[i]);
+            mergeSort.writeToFile(firstRun);
+
+            medianQuickSort.getTimeComplexity(sizes[i]);
+            medianQuickSort.writeToFile(firstRun);
+
+            quickSortLeftMostPivot.getTimeComplexity(sizes[i]);
+            quickSortLeftMostPivot.writeToFile(firstRun);
 
             firstRun = false;
         }

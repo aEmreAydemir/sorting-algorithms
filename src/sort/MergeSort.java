@@ -1,31 +1,41 @@
 package sort;
 
 
-public class MergeSort extends complexity{
+import java.util.HashMap;
+import java.util.Map;
+
+public class MergeSort extends complexity {
     private int numberOfBasicOp;
     private int[] nums;
-    Testing testing= new Testing();
+    Testing testing = new Testing();
 
+    private Map<String, String> inputType = new HashMap<>();
 
+    public MergeSort() {
+        inputType.put("best", "ascending");
+        inputType.put("average", "random");
+        inputType.put("worst", "descending");
+    }
     @Override
-    public void sort(int []nums){
-        mergesorting(nums, 0, nums.length-1);
+    public void sort(int[] nums) {
+        this.nums = nums;
+        mergeSorting(nums, 0, nums.length - 1);
     }
 
-    private void mergesorting(int[] nums, int little, int big) {
+    private void mergeSorting(int[] nums, int little, int big) {
         if (big <= little) return;
 
-        int mid = (little+big)/2;
-        mergesorting(nums, little, mid);
-        mergesorting(nums, mid+1, big);
+        int mid = (little + big) / 2;
+        mergeSorting(nums, little, mid);
+        mergeSorting(nums, mid + 1, big);
         merge(nums, little, mid, big);
     }
 
 
     private void merge(int[] array, int little, int mid, int big) {
         // creating arrays for the left and right piece
-        int leftPiece[] = new int[mid - little + 1];
-        int rightPiece[] = new int[big - mid];
+        int[] leftPiece = new int[mid - little + 1];
+        int[] rightPiece = new int[big - mid];
 
         // placing the elements of the actual array to the pieces
         for (int i = 0; i < leftPiece.length; i++)
@@ -34,33 +44,31 @@ public class MergeSort extends complexity{
             rightPiece[i] = array[mid + i + 1];
 
         // holding the indexes of left and right pieces
-        int leftpieceI = 0;
-        int rightpieceI = 0;
+        int leftPieceI = 0;
+        int rightPieceI = 0;
 
         // placing elements back to the actual array
         for (int i = little; i < big + 1; i++) {
             // in case there are missing elements in the left and right pieces, minimum of the two is placed
-            if (leftpieceI < leftPiece.length && rightpieceI < rightPiece.length) {
-                if (leftPiece[leftpieceI] < rightPiece[rightpieceI]) {
-                    array[i] = leftPiece[leftpieceI];
-                    leftpieceI++;
+            if (leftPieceI < leftPiece.length && rightPieceI < rightPiece.length) {
+                if (leftPiece[leftPieceI] < rightPiece[rightPieceI]) {
+                    array[i] = leftPiece[leftPieceI];
+                    leftPieceI++;
                 } else {
-                    array[i] = rightPiece[rightpieceI];
-                    rightpieceI++;
+                    array[i] = rightPiece[rightPieceI];
+                    rightPieceI++;
                 }
-            } else if (leftpieceI < leftPiece.length) {
+            } else if (leftPieceI < leftPiece.length) {
                 // if the elements of rightPiece are placed in the array, place the elements of leftPiece
-                array[i] = leftPiece[leftpieceI];
-                leftpieceI++;
-            } else if (rightpieceI < rightPiece.length) {
+                array[i] = leftPiece[leftPieceI];
+                leftPieceI++;
+            } else if (rightPieceI < rightPiece.length) {
                 // if the elements of leftPiece are placed in the array, place the elements of rightPiece
-                array[i] = rightPiece[rightpieceI];
-                rightpieceI++;
+                array[i] = rightPiece[rightPieceI];
+                rightPieceI++;
             }
         }
     }
-
-
 
 
     @Override
@@ -93,25 +101,8 @@ public class MergeSort extends complexity{
         return this.nums;
     }
 
-
-/*
- public static void main(String args[]) {
-
-    int[] array = new int[]{5, 6, 7, 2, 4, 1, 7};
-    mergesort(array, 0, array.length-1);
-    System.out.println(Arrays.toString(array));
-
-}
-
- public static void sort(int[] nums, int little, int big) {
-        if (big <= little) return;
-
-        int mid = (little+big)/2;
-        sort(nums, little, mid);
-        sort(nums, mid+1, big);
-        merge(nums, little, mid, big);
+    protected String getCase(String inputType) {
+        return this.inputType.get(inputType);
     }
-*/
-
 
 }

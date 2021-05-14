@@ -1,9 +1,19 @@
 package sort;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class BinaryInsertionSort extends complexity {
     private int numberOfBasicOp;
     private int[] nums;
     Testing testing = new Testing();
+    private Map<String, String> inputType = new HashMap<>();
+
+    public BinaryInsertionSort() {
+        inputType.put("best", "ascending");
+        inputType.put("average", "random");
+        inputType.put("worst", "descending");
+    }
 
     @Override
     public void sort(int[] nums) {
@@ -69,5 +79,10 @@ public class BinaryInsertionSort extends complexity {
     @Override
     protected int[] getIntArr() {
         return this.nums;
+    }
+
+    @Override
+    protected String getCase(String inputType) {
+        return this.inputType.get(inputType);
     }
 }

@@ -1,16 +1,26 @@
 package sort;
-import java.util.Arrays;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class QuickSortLeftMostPivot extends complexity {
-    private int[] numbers;
+    private int[] nums;
     private int numberOfBasicOp;
+    Testing testing = new Testing();
+    private Map<String, String> inputType = new HashMap<>();
+
+    public QuickSortLeftMostPivot() {
+        inputType.put("best", "ascending");
+        inputType.put("average", "random");
+        inputType.put("worst", "custom");
+    }
     /**
      This is the initial setup method for quicksort algorithm. Give this method your array only. It ill invoke the
      sort algorithm by starting with left most element
      */
     @Override
     public void sort(int[] array) {
-        numbers = array;
+        nums = array;
         sort(array, 0, array.length - 1);
     }
 
@@ -70,32 +80,37 @@ public class QuickSortLeftMostPivot extends complexity {
     }
 
     @Override
-    protected String getAlgorithmName() {
-        return "quick sort using left most element as pivot";
-    }
-
-    @Override
-    protected int[] getIntArr() {
-        return numbers;
-    }
-
-    @Override
-    protected int getNumberOfBasicOp() {
+    public int getNumberOfBasicOp() {
         return numberOfBasicOp;
     }
 
     @Override
     protected int[] getBestCaseIntArr(int n) {
-        return new int[0];
+        return testing.generateSortedIntArray(n);
     }
 
     @Override
     protected int[] getAverageCaseIntArr(int n) {
-        return new int[0];
+        return testing.generateRandomIntArray(n);
     }
 
     @Override
     protected int[] getWorstCaseIntArr(int n) {
-        return new int[0];
+        return testing.generateSortedIntArray(n);
+    }
+
+    @Override
+    protected String getAlgorithmName() {
+        return "QuickSortLeftMostPivot";
+    }
+
+    @Override
+    protected int[] getIntArr() {
+        return this.nums;
+    }
+
+    @Override
+    protected String getCase(String inputType) {
+        return this.inputType.get(inputType);
     }
 }
