@@ -12,6 +12,7 @@ public class Main {
         MedianQuickSort medianQuickSort = new MedianQuickSort();
         MergeSort mergeSort = new MergeSort();
         QuickSortLeftMostPivot quickSortLeftMostPivot = new QuickSortLeftMostPivot();
+        InsertionSort insertionSort= new InsertionSort();
 
         boolean firstRun = true;
 
@@ -38,6 +39,9 @@ public class Main {
 
             quickSortLeftMostPivot.getTimeComplexity(sizes[i]);
             quickSortLeftMostPivot.writeToFile(firstRun);
+
+            insertionSort.getTimeComplexity(sizes[i]);
+            insertionSort.writeToFile(firstRun);
 
             firstRun = false;
         }
