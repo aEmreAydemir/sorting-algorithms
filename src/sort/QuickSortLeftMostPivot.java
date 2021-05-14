@@ -2,11 +2,14 @@ package sort;
 import java.util.Arrays;
 
 public class QuickSortLeftMostPivot extends complexity {
+
+    private int numberOfBasicOp;
     /**
      This is the initial setup method for quicksort algorithm. Give this method your array only. It ill invoke the
      sort algorithm by starting with left most element
      */
-    public void quickSort1(int[] array) {
+    @Override
+    public void sort(int[] array) {
         sort(array, 0, array.length - 1);
     }
 
@@ -19,6 +22,7 @@ public class QuickSortLeftMostPivot extends complexity {
      */
     private void sort(int[] array, int l, int r) {
         if (l < r) {
+
             // select pivot element (left-most)
             int pivot = array[l];
             // partition and shuffle around pivot
@@ -28,16 +32,20 @@ public class QuickSortLeftMostPivot extends complexity {
                 // move right to avoid pivot element
                 i += 1;
                 // scan right: find elements greater than pivot
+               numberOfBasicOp++;
                 while (i <= r && array[i] < pivot) {
                     i += 1;
+                    numberOfBasicOp++;
                 }
                 // scan left: find elements smaller than pivot
                 while (j >= l && array[j] > pivot) {
                     j -= 1;
+                    numberOfBasicOp++;
                 }
                 if (i <= r && i < j) {
                     // swap around pivot
                     swap(array, i, j);
+                    numberOfBasicOp++;
                 }
             }
             // put pivot in correct place
@@ -67,17 +75,12 @@ public class QuickSortLeftMostPivot extends complexity {
 
     @Override
     protected int[] getIntArr() {
-        return new int[0];
-    }
-
-    @Override
-    protected void sort(int[] arr) {
-
+        return ;
     }
 
     @Override
     protected int getNumberOfBasicOp() {
-        return 0;
+        return numberOfBasicOp;
     }
 
     @Override
