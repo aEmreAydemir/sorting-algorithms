@@ -92,7 +92,7 @@ public class MedianQuickSort extends complexity{
 
     @Override
     protected int[] getIntArr() {
-        return new int[0];
+        return a;
     }
 
     @Override

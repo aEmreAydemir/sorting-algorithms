@@ -2,7 +2,7 @@ package sort;
 import java.util.Arrays;
 
 public class QuickSortLeftMostPivot extends complexity {
-
+    private int[] numbers;
     private int numberOfBasicOp;
     /**
      This is the initial setup method for quicksort algorithm. Give this method your array only. It ill invoke the
@@ -10,6 +10,7 @@ public class QuickSortLeftMostPivot extends complexity {
      */
     @Override
     public void sort(int[] array) {
+        numbers = array;
         sort(array, 0, array.length - 1);
     }
 
@@ -75,7 +76,7 @@ public class QuickSortLeftMostPivot extends complexity {
 
     @Override
     protected int[] getIntArr() {
-        return ;
+        return numbers;
     }
 
     @Override
