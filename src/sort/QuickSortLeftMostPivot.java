@@ -1,5 +1,6 @@
 package sort;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,16 +11,18 @@ public class QuickSortLeftMostPivot extends complexity {
     private Map<String, String> inputType = new HashMap<>();
 
     public QuickSortLeftMostPivot() {
-        inputType.put("best", "ascending");
+        inputType.put("best", "random");
         inputType.put("average", "random");
-        inputType.put("worst", "custom");
+        inputType.put("worst", "ascending");
     }
+
     /**
-     This is the initial setup method for quicksort algorithm. Give this method your array only. It ill invoke the
-     sort algorithm by starting with left most element
+     * This is the initial setup method for quicksort algorithm. Give this method your array only. It ill invoke the
+     * sort algorithm by starting with left most element
      */
     @Override
     public void sort(int[] array) {
+        numberOfBasicOp = 0;
         nums = array;
         sort(array, 0, array.length - 1);
     }
@@ -27,7 +30,7 @@ public class QuickSortLeftMostPivot extends complexity {
     /**
      * Quick sort the given array starting from index
      * left and right
-     *
+     * <p>
      * Uses the first element in the array as the pivot
      * It uses a recursive approach
      */
@@ -43,20 +46,17 @@ public class QuickSortLeftMostPivot extends complexity {
                 // move right to avoid pivot element
                 i += 1;
                 // scan right: find elements greater than pivot
-               numberOfBasicOp++;
                 while (i <= r && array[i] < pivot) {
                     i += 1;
-                    numberOfBasicOp++;
                 }
                 // scan left: find elements smaller than pivot
                 while (j >= l && array[j] > pivot) {
                     j -= 1;
-                    numberOfBasicOp++;
                 }
+                numberOfBasicOp++; // selected as basic operation
                 if (i <= r && i < j) {
                     // swap around pivot
                     swap(array, i, j);
-                    numberOfBasicOp++;
                 }
             }
             // put pivot in correct place
@@ -80,13 +80,13 @@ public class QuickSortLeftMostPivot extends complexity {
     }
 
     @Override
-    public int getNumberOfBasicOp() {
+    public double getNumberOfBasicOp() {
         return numberOfBasicOp;
     }
 
     @Override
     protected int[] getBestCaseIntArr(int n) {
-        return testing.generateSortedIntArray(n);
+        return testing.generateRandomIntArray(n);
     }
 
     @Override

@@ -91,7 +91,7 @@ public abstract class complexity {
 
     protected abstract void sort(int[] arr);
 
-    protected abstract int getNumberOfBasicOp();
+    protected abstract double getNumberOfBasicOp();
 
     protected abstract int[] getBestCaseIntArr(int n);
 

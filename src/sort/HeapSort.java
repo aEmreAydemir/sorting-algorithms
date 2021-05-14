@@ -1,5 +1,6 @@
 package sort;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,12 +40,13 @@ public class HeapSort extends complexity {
 
     // heapify the subtree with root i (i=index in array, n=heap size)
 
-    private void heapify(int array[], int n, int i) {
+    private void heapify(int[] array, int n, int i) {
         int biggest = i; // the biggest is the root
         int left = 2 * i + 1;
         int right = 2 * i + 2;
 
         // case: left child>root
+        numberOfBasicOp++; // selected as basic operation
         if (left < n && array[left] > array[biggest])
             biggest = left;
 
@@ -64,7 +66,7 @@ public class HeapSort extends complexity {
     }
 
     @Override
-    public int getNumberOfBasicOp() {
+    public double getNumberOfBasicOp() {
         return numberOfBasicOp;
     }
 

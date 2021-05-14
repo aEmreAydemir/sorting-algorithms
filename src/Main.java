@@ -16,7 +16,7 @@ public class Main {
 
         boolean firstRun = true;
 
-        int[] sizes = new int[120]; // sample sizes
+        int[] sizes = new int[130]; // sample sizes
         for (int i = 1; i <= sizes.length; i++) {
             sizes[i - 1] = (int) Math.pow(i, 2);
         }

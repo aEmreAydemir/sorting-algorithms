@@ -1,6 +1,7 @@
 package sort;
 
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,11 +19,13 @@ public class MergeSort extends complexity {
     }
     @Override
     public void sort(int[] nums) {
+        numberOfBasicOp = 0;
         this.nums = nums;
         mergeSorting(nums, 0, nums.length - 1);
     }
 
     private void mergeSorting(int[] nums, int little, int big) {
+        numberOfBasicOp++; // selected as basic operation
         if (big <= little) return;
 
         int mid = (little + big) / 2;
@@ -72,7 +75,7 @@ public class MergeSort extends complexity {
 
 
     @Override
-    public int getNumberOfBasicOp() {
+    public double getNumberOfBasicOp() {
         return numberOfBasicOp;
     }
 

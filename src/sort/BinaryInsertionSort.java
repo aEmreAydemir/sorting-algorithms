@@ -1,5 +1,6 @@
 package sort;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,9 +53,10 @@ public class BinaryInsertionSort extends complexity {
     }
 
     @Override
-    public int getNumberOfBasicOp() {
+    public double getNumberOfBasicOp() {
         return numberOfBasicOp;
     }
+
 
     @Override
     protected int[] getBestCaseIntArr(int n) {

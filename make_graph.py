@@ -7,11 +7,9 @@ import os
 paths = os.listdir('output')
 title = None
 
-
 def check_dir(path):
     if not os.path.exists(path):
         os.makedirs(path)
-
 
 def compare_algorithm_plot(dic, time_plot=True):
     for key, value_dic in dic.items():
@@ -72,6 +70,7 @@ def make_plot(df, case, time_plot=True):
     spl = make_interp_spline(size, y, k=3)
     power_smooth = spl(xnew)
 
+    plt.title(case + ' case')
     plt.plot(xnew, power_smooth, label=label)
     plt.legend()
     plt.xlabel('n')

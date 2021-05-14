@@ -1,5 +1,6 @@
 package sort;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +14,7 @@ public class MedianQuickSort extends complexity {
     public MedianQuickSort() {
         inputType.put("best", "ascending");
         inputType.put("average", "random");
-        inputType.put("worst", "descending");
+        inputType.put("worst", "custom");
     }
 
     @Override
@@ -31,11 +32,10 @@ public class MedianQuickSort extends complexity {
     private static void quickSort(int[] arr, int left, int right) {
 
         // If both cursor scanned the complete array, quicksort exits
+        numberOfBasicOp++; // selected as basic operation
         if (left >= right) {
-            numberOfBasicOp++;
             return;
         }
-
 
         // Pivot using median of 3 approach
         int pivot = getMedian(arr, left, right);
@@ -53,7 +53,6 @@ public class MedianQuickSort extends complexity {
         while (leftCursor < rightCursor) {
             while (arr[++leftCursor] < pivot) ;
             while (rightCursor > 0 && arr[--rightCursor] > pivot) ;
-            numberOfBasicOp++;
             if (leftCursor >= rightCursor) {
                 break;
             } else {
@@ -68,18 +67,15 @@ public class MedianQuickSort extends complexity {
         int center = (left + right) / 2;
         if (arr[left] > arr[center]) {
             swap(arr, left, center);
-            numberOfBasicOp++;
         }
 
 
         if (arr[left] > arr[right]) {
             swap(arr, left, right);
-            numberOfBasicOp++;
         }
 
         if (arr[center] > arr[right]) {
             swap(arr, center, right);
-            numberOfBasicOp++;
         }
 
         swap(arr, center, right);
@@ -94,7 +90,7 @@ public class MedianQuickSort extends complexity {
     }
 
     @Override
-    public int getNumberOfBasicOp() {
+    public double getNumberOfBasicOp() {
         return numberOfBasicOp;
     }
 

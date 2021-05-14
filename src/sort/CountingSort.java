@@ -1,5 +1,6 @@
 package sort;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,20 +41,18 @@ public class CountingSort extends complexity {
 
         // Store the count of each element
         for (int i = 0; i < size; i++) {
-            numberOfBasicOp++;
             count[nums[i]]++;
         }
 
         // Store the cumulative count of each array
         for (int i = 1; i <= max; i++) {
-            numberOfBasicOp++;
+            numberOfBasicOp++; // selected as basic operation
             count[i] += count[i - 1];
         }
 
         // Find the index of each element of the original array in count array, and
         // place the elements in output array
         for (int i = size - 1; i >= 0; i--) {
-            numberOfBasicOp++;
             output[count[nums[i]] - 1] = nums[i];
             count[nums[i]]--;
         }
@@ -76,7 +75,7 @@ public class CountingSort extends complexity {
     }
 
     @Override
-    public int getNumberOfBasicOp() {
+    public double getNumberOfBasicOp() {
         return numberOfBasicOp;
     }
 
