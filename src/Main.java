@@ -1,5 +1,7 @@
 import sort.BinaryInsertionSort;
 import sort.CountingSort;
+import sort.HeapSort;
+import sort.MergeSort;
 
 
 import java.io.IOException;
@@ -9,6 +11,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BinaryInsertionSort binaryInsertionSort = new BinaryInsertionSort();
         CountingSort countingSort = new CountingSort();
+        //HeapSort heapSort= new HeapSort();
+        //MergeSort mergeSort=new MergeSort();
         boolean firstRun = true;
 
         int[] sizes = new int[120]; // sample sizes
@@ -22,6 +26,7 @@ public class Main {
 
             countingSort.getTimeComplexity(sizes[i]);
             countingSort.writeToFile(firstRun);
+
             firstRun = false;
         }
     }
